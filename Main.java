@@ -9,6 +9,7 @@ public class Main {
     //for user input
     public static void main(String[] args)throws Exception {
 
+
         //initiate readers to allow for uses input
         Scanner sc = new Scanner(System.in);
         InputStreamReader r = new InputStreamReader(System.in);
@@ -40,7 +41,7 @@ public class Main {
 
             //----------------------------------------------------------------------------------------------
             //ask for lower vertical restrictions (x = a value)
-            System.out.println("What is your lower v. restriction?\n " +
+            System.out.println("What is your lower h. restriction?\n " +
                     "(Must be greater than or equal to 0)");
             d1 = sc. nextDouble();
 
@@ -53,9 +54,9 @@ public class Main {
 
                 //print out the error in their restriction
                 if (d1 < 0){
-                    System.out.println("Your lower v. restriction must be greater than or equal to 0");
+                    System.out.println("Your lower h. restriction must be greater than or equal to 0");
                 }else{
-                    System.out.println("Your higher v. restriction must be greater than the lower h. restriction");
+                    System.out.println("Your higher h. restriction must be greater than the lower h. restriction");
                 }//close if-else statement
 
                 //ask for lower vertical restrictions (x = a value)
@@ -71,7 +72,7 @@ public class Main {
 
             //----------------------------------------------------------------------------------------------
             //ask for horizontal restriction
-            System.out.println("What is your h. restriction?");
+            System.out.println("What is your v. restriction?");
             gx = sc.nextDouble();
 
             //----------------------------------------------------------------------------------------------
