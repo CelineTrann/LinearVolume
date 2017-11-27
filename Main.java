@@ -36,17 +36,17 @@ public class Main {
                     "What is your m value?");
             m = sc.nextDouble();
 
-            System.out.println("\nWhat is your b value?");
+            System.out.println("What is your b value?");
             b = sc.nextDouble();
 
             //----------------------------------------------------------------------------------------------
             //ask for lower vertical restrictions (x = a value)
-            System.out.println("What is your lower h. restriction?\n " +
+            System.out.println("What is your lower domain restriction?\n " +
                     "(Must be greater than or equal to 0)");
             d1 = sc. nextDouble();
 
             //ask for higher vertical restrictions ( x = a value)
-            System.out.println("What is your higher h. restriction?");
+            System.out.println("What is your higher domain restriction?");
             d2 = sc.nextDouble();
 
             //while loop that will continue until the parameters for the v. restriction s are met
@@ -54,28 +54,38 @@ public class Main {
 
                 //print out the error in their restriction
                 if (d1 < 0){
-                    System.out.println("Your lower h. restriction must be greater than or equal to 0");
+                    System.out.println("Your lower domain restriction must be greater than or equal to 0");
                 }else{
-                    System.out.println("Your higher h. restriction must be greater than the lower h. restriction");
+                    System.out.println("Your higher domain restriction must be greater than the lower one.");
                 }//close if-else statement
 
-                //ask for lower vertical restrictions (x = a value)
-                System.out.println("What is your lower h. restriction?\n " +
+                //ask for lower horizontal restrictions (x = a value)
+                System.out.println("What is your lower domain restriction?\n " +
                         "(Must be greater than or equal to 0)");
                 d1 = sc. nextDouble();
 
-                //ask for higher vertical restrictions (x = a value)
-                System.out.println("What is your higher h. restriction?");
+                //ask for higher horizontal restrictions (x = a value)
+                System.out.println("What is your higher domain restriction?");
                 d2 = sc.nextDouble();
 
             }//close while loop
 
             //----------------------------------------------------------------------------------------------
-            //ask for horizontal restriction
-            System.out.println("What is your v. restriction?");
+            //ask for vertical restriction
+            //restriction must be greater than zero to keep function in first quadrant
+            System.out.println("What is your v. restriction?" +
+                    "\n (Please have it be a positive value)");
             gx = sc.nextDouble();
 
+            //if restriction is a negative value it will be set to 0
+            //does so to keep function in the first quadrant
+            if (gx < 0){
+                gx = 0;
+            }//close if statement
+
             //----------------------------------------------------------------------------------------------
+            //ask how many iteration the user would like to do
+            //more iterations means a more precise and accurate number
             System.out.println("How many iterations do you want to use?");
             iteration = sc.nextDouble();
 
@@ -84,7 +94,7 @@ public class Main {
             volume.setRestricitons(d1, d2, gx, iteration);
 
             //states what the volume function
-            System.out.println("The volume is:" + volume.calculate(m, b));
+            System.out.println("The volume is: " + volume.calculate(m, b));
 
             //----------------------------------------------------------------------------------------------
             //ask if use wants to continue
