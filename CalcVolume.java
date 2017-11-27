@@ -1,107 +1,83 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Scanner;
+/**
+ * Created by 84674tra on 15/11/2017.
+ */
+public class CalcVolume {
+    //initiates restrictions for calculations
+    private double d1;
+    private double d2;
+    private double gx;
+    private double slice;
 
-public class Main {
+    //initiate volume variable
+    private double volume;
 
-    //for user input
-    public static void main(String[] args)throws Exception {
+    //----------------------------------------------------------------------------------------------
+    //set the restrictions users set
+    public void setRestricitons(double domain1, double domain2, double vr, double iterations) {
+        d1 = domain1;
+        d2 = domain2;
+        gx = vr;
+        slice = iterations;
+    }//close setRestrictions Functions
 
-        //initiate readers to allow for uses input
-        Scanner sc = new Scanner(System.in);
-        InputStreamReader r = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(r);
+    //----------------------------------------------------------------------------------------------
+    //reset data of restrictions
+    public void resetData(){
+        d1 = 0;
+        d2 = 0;
+        gx = 0;
+        slice = 0;
+        volume = 0;
+    }//close resetData function
 
-        //initiate object
-        CalcVolume volume = new CalcVolume();
+    //----------------------------------------------------------------------------------------------
+    //initiates calculate function with variable for functions: y = mx + b
+    //calculates the volume of "cylinder" created when the linear function is rotated around the y-axis
+    public double calculate (double m, double b){
 
-        //initiate variables for function
-        double m;
-        double b;
-        double gx;
-        double d1;
-        double d2;
-        double iteration;
+        //calls private method that calculate variable
+        Volume(m, b);
 
-        //variable to see if user want to continue
-        boolean cont = true;
-        String ans;
+        //returns volume of linear function
+        return volume;
 
-        while (cont){
-            //prompts and get values for linear function
-            System.out.println("For the function: f(x) = mx = b \n" +
-                    "What is your m value?");
-            m = sc.nextDouble();
+    }//closes calculate funtions
 
-            System.out.println("\nWhat is your b value?");
-            b = sc.nextDouble();
 
-            //----------------------------------------------------------------------------------------------
-            //ask for lower vertical restrictions (x = a value)
-            System.out.println("What is your lower v. restriction?\n " +
-                    "(Must be greater than or equal to 0)");
-            d1 = sc. nextDouble();
+    private void Volume (double m, double b){
+        //initiates variables used to calculated volume
+        double x;
+        double thickness;
+        double height;
+        double width;
 
-            //ask for higher vertical restrictions ( x = a value)
-            System.out.println("What is your higher h. restriction?");
-            d2 = sc.nextDouble();
+        for (int i = 0; i < slice; i++ ){
+            //calculate the width of each iterative slice
+            //calculated by dividing the horizontal range by the number of iterations
+            thickness = (d2 - d1)/slice;
 
-            //while loop that will continue until the parameters for the v. restriction s are met
-            while  (d1 < 0 || d1 >= d2){
+            //allow the current iteration to be accounted for in the volume calculation
+            //calculates what the x-value is at that point in the iteration
+            x = d2 - thickness*i;
 
-                //print out the error in their restriction
-                if (d1 < 0){
-                    System.out.println("Your lower v. restriction must be greater than or equal to 0");
-                }else{
-                    System.out.println("Your higher v. restriction must be greater than the lower h. restriction");
-                }//close if-else statement
+            //what the height of said iteration is at the x -value
+            //height of the "cylinder" and will become height of rectangular prism
+            //uses linear eqn and subtract the g(x) value
+            height = m * x + b - gx;
 
-                //ask for lower vertical restrictions (x = a value)
-                System.out.println("What is your lower h. restriction?\n " +
-                        "(Must be greater than or equal to 0)");
-                d1 = sc. nextDouble();
+            //calculates the circumference of the cylinder
+            //this will be used as the width of the rectangular prism
+            width = 2*Math.PI*x;
 
-                //ask for higher vertical restrictions (x = a value)
-                System.out.println("What is your higher h. restriction?");
-                d2 = sc.nextDouble();
+            //calculate the volume of each iteration and adds it to the overall volume
+            //does so by calculating the volume of a rectangular prism
+            //which is created by "peeling" the outer of the "cylinder" off
+            //which is created when the linear function is rotated around the y-axis
+            volume += Math.abs(width*height*thickness);
 
-            }//close while loop
+        }//closes for loop
+    }
 
-            //----------------------------------------------------------------------------------------------
-            //ask for horizontal restriction
-            System.out.println("What is your h. restriction?");
-            gx = sc.nextDouble();
-
-            //----------------------------------------------------------------------------------------------
-            System.out.println("How many iterations do you want to use?");
-            iteration = sc.nextDouble();
-
-            //----------------------------------------------------------------------------------------------
-            //set restriction values in CalcVolume Class
-            volume.setRestricitons(d1, d2, gx, iteration);
-
-            //states what the volume function
-            System.out.println("The volume is:" + volume.calculate(m, b));
-
-            //----------------------------------------------------------------------------------------------
-            //ask if use wants to continue
-            System.out.println("Do you wish to continue?");
-            ans = br.readLine();
-
-            //if they want to program will close
-            //will end while loop
-            if (ans.equalsIgnoreCase("no")){
-
-                cont = false;
-
-            }//close if statement
-
-            //----------------------------------------------------------------------------------------------
-            //reset user set restrictions
-            volume.resetData();
-
-        }//close while statement
-    }//closes main function
-}//closes main class
+}//closes calcVolume class
